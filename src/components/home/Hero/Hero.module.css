@@ -1,0 +1,27 @@
+/* 
+Escribir los nombres de mis clases en camelCase
+
+Usar BEM
+
+si son muy peque;o los componentes modifica directamente las 
+etiquetas hijas
+ */
+
+.Hero{
+    margin: 10rem;
+}
+
+
+.Hero > h1 {
+    font-size: 3rem;
+    color: blueviolet;
+    text-align: center;
+}
+
+
+
+.Hero > h2 {   
+    font-size: 3rem;
+    color: red;
+    text-align: center;
+}
