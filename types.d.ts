@@ -12,7 +12,7 @@ type ProductType = {
 
   price: number;
 
-  variants: VariantType[];
+  variants?: VariantType[];
 
   image: string;
 
