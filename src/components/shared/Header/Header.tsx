@@ -1,16 +1,15 @@
 import Link from "next/link";
-import styles from "./Header.module.css";
-import { cookies } from "next/headers";
+import styles from "./Header.module.sass";
 import { validateAcceessToken } from "app/utils/auth/validateAccessToken";
+import { ShoppingCart } from "../ShoppingCart";
 
-
-export const Header = async() => {
+export const Header = async () => {
     // const cookiesStore = cookies();
     // const token = cookiesStore.get('accesToken')?.value
 
     const { firstName }: { firstName: string } = await validateAcceessToken();
     return (
-        <header>
+        <header className={styles.Header}>
             <nav>
                 <ul className={styles.Header__list}>
                     {/* link usarlo cuando son URLS internas de un pryecto
@@ -22,8 +21,11 @@ export const Header = async() => {
                         <Link href="/store">Store</Link>
                     </li>
                 </ul>
-                {firstName ? (<p>Hola {firstName}! Bienvendio😁👍</p>):( <Link href="/login">Login</Link>)}
             </nav>
+            <div className={styles.Header__user}>
+                {firstName ? (<p>Hola {firstName}! Bienvendio😁👍</p>) : (<Link href="/login">Login</Link>)}
+                <ShoppingCart />
+            </div>
         </header>
     );
 };
