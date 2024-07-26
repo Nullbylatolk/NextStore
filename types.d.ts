@@ -5,27 +5,25 @@ interface ErrorPagesProps {
 
 type ProductType = {
   id: string;
-
   title: string;
-
   description: string;
-
   price: number;
-
   variants?: VariantType[];
-
   image: string;
-
   quantity: number;
-
   handle: string;
-
   tags: string;
 };
 
-
 type collections = {
-  id: number
-  title: string
-  handle: string
-}
+  id: number;
+  title: string;
+  handle: string;
+};
+
+type CartItem = {
+  title: string;
+  price: number;
+  quantity: number;
+  id: string;
+};
