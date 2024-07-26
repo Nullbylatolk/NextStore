@@ -8,11 +8,11 @@ type ProductType = {
   title: string;
   description: string;
   price: number;
-  variants?: VariantType[];
   image: string;
   quantity: number;
   handle: string;
   tags: string;
+  gql_id: string;
 };
 
 type collections = {
@@ -26,4 +26,6 @@ type CartItem = {
   price: number;
   quantity: number;
   id: string;
+  image:string;
+  merchandiseId: string;
 };
