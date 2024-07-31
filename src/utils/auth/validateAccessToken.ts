@@ -3,19 +3,34 @@ import { cookies } from "next/headers";
 import { customerName } from "app/graphql/queries/customerName";
 
 type Customer = {
-  firstName: string;
-  email: string;
+  firstName: string | null;
+  email: string | null;
 };
 
-export const validateAcceessToken = async () => {
+
+type CustomerResponse = {
+  customer: Customer;
+};
+
+
+export const validateAcceessToken = async (): Promise<Customer> => {
   const cookiesStore = cookies();
-  const accessToken = cookiesStore.get("accesToken")?.value;
+  const accessToken = cookiesStore.get("accesToken")?.value || '';
   const graphqlClient = GraphQLClientSingleton.getInstance().getClient();
-  const { customer }: { customer: Customer } = await graphqlClient.request(
-    customerName,
-    {
+
+  try {
+    const response = await graphqlClient.request<CustomerResponse>(customerName, {
       customerAccessToken: accessToken,
+    });
+    const { customer }: { customer: Customer } = response;
+
+    if (!customer) {
+      return { firstName: null, email: null };
     }
-  );
-  return customer;
+
+    return customer;
+  } catch (error) {
+    console.error('Error fetching customer:', error);
+    return { firstName: null, email: null };
+  }
 };

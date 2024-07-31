@@ -14,7 +14,14 @@ export const Header = async () => {
     // const cookiesStore = cookies();
     // const token = cookiesStore.get('accesToken')?.value
 
-    const { firstName }: { firstName: string } = await validateAcceessToken();
+    const customer = await validateAcceessToken();
+
+    const { firstName } = customer;
+    if (firstName) {
+        console.log('Customer first name:', firstName);
+    } else {
+        console.error('No valid customer first name found.');
+    }
     return (
         <header className={styles.Header}>
             <nav>
