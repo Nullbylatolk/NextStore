@@ -1,11 +1,11 @@
-import {Roboto} from 'next/font/google'
+import { Roboto } from 'next/font/google'
 
 import { Header } from "app/components/shared/Header";
 import { Footer } from "app/components/shared/Footer";
-import  'app/sass/global.sass'
+import 'app/sass/global.sass'
 const roboto = Roboto(
-  { 
-    weight:["100","300","500","700"],
+  {
+    weight: ["100", "300", "500", "700"],
     subsets: ["latin"]
   });
 
