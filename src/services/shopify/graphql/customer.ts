@@ -11,7 +11,7 @@ export const getCustomerOrders = async () => {
     customerAccessToken: accessToken
   }
 
-  const { customer } = await graphqlClient.request(getOrdersQuery, variables)
+  const { customer }:{customer:any} = await graphqlClient.request(getOrdersQuery, variables)
   const orders = customer?.orders?.edges.map((edge: any) => edge.node)
 
   return {

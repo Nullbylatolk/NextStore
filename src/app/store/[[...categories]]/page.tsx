@@ -2,9 +2,8 @@ import { ProductsWrapper } from "app/components/store/ProductsWrapper/ProductsWr
 import { getCollections, getCollectionsProducts } from "app/services/shopify/collections";
 import { getProducts } from "app/services/shopify/products";
 
-/*
-Una buena práctica en todos los componentes de React es agregar una interface para saber qué tipo de propiedades vas a recibir
-*/
+
+export const runtime = "edge"
 
 interface CategoryProps {
     params: {
@@ -16,8 +15,8 @@ interface CategoryProps {
 export default async function Category(props: CategoryProps) {
     const { categories } = props.params;
 
-    let products = []
-    const collections = await getCollections()
+    let products: ProductType[] = [];
+    const collections = await getCollections();
 
     // Verificar que categories no es undefined y contiene al menos un elemento
     if (categories && categories.length > 0) {
@@ -26,14 +25,29 @@ export default async function Category(props: CategoryProps) {
         // Verificar que find() haya encontrado un resultado antes de intentar acceder a su id
         if (selectedCollection) {
             const selectedCollectionId = selectedCollection.id;
-            products = await getCollectionsProducts(selectedCollectionId);
+            const fetchedProducts = await getCollectionsProducts(selectedCollectionId);
+
+            // Si fetchedProducts es undefined, products se mantiene como un array vacío
+            if (fetchedProducts) {
+                products = fetchedProducts;
+            }
         } else {
             console.error('Collection with the specified handle was not found.');
-            products = await getProducts();
+            const fetchedProducts = await getProducts();
+
+            // Si fetchedProducts es undefined, products se mantiene como un array vacío
+            if (fetchedProducts) {
+                products = fetchedProducts;
+            }
         }
     } else {
         console.error('Categories is undefined or empty.');
-        products = await getProducts();
+        const fetchedProducts = await getProducts();
+
+        // Si fetchedProducts es undefined, products se mantiene como un array vacío
+        if (fetchedProducts) {
+            products = fetchedProducts;
+        }
     }
 
     return (
