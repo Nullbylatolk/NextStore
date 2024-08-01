@@ -37,7 +37,7 @@ export const Header = async () => {
                 </ul>
             </nav>
             <div className={styles.Header__user}>
-                {firstName ? (<p>Hola {firstName}! Bienvendio😁👍</p>) : (<Link href="/login">Login</Link>)}
+                {firstName ? (<Link href="/my-account">Hola! {customer.firstName}</Link>) : (<Link href="/login">Login</Link>)}
                 <NosSSRShoppingCart />
             </div>
         </header>
